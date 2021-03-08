@@ -102,7 +102,16 @@ func (r *Reflection) Value() reflect.Value {
 }
 
 //the last method call result, if any
-func (r *Reflection) Ret() []reflect.Value {
+func (r *Reflection) Ret() []*Reflection {
+	refs := make([]*Reflection, len(r.execRet))
+	for i := range r.execRet {
+		refs[i] = ReflectValue(r.execRet[i])
+	}
+	return refs
+}
+
+//the last method call result, if any
+func (r *Reflection) RetValue() []reflect.Value {
 	return r.execRet
 }
 
